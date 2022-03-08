@@ -5,6 +5,8 @@ module Lib.Translation
     ( Translation(..)
     , isChanged
     , notFoundPhotographeesError
+    , business
+    , buildBusiness
     , countPhotographees
     , changedPhotographeesError
     , couldNotReadDoneshootingDir
@@ -155,6 +157,8 @@ data Translation = Translation { _loading :: String
                                , _doneshootingEmpty :: String
                                , _couldNotReadDoneshootingDir :: String
                                , _countPhotographees :: String
+                               , _business :: String
+                               , _buildBusiness :: String
                                }
     deriving (Show, Ord, Eq, Generic, ToJSON, FromJSON)
 

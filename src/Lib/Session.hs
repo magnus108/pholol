@@ -28,10 +28,13 @@ import Lib.Data
 import Control.Lens
 import qualified Lib.Translation  as Translation --todo should not be here
 
+
+-- hvordan skal det her virke med shootings
 data Session
     = KindergartenGroup Int
     | KindergartenSingle Int
     | School Int
+    | Business Int
     deriving (Eq, Ord, Show)
     deriving (Generic)
     deriving (FromJSON, ToJSON, NFData)
@@ -40,6 +43,7 @@ toInteger :: Session -> Int
 toInteger (KindergartenSingle x) = x
 toInteger (KindergartenGroup x) = x
 toInteger (School x) = x
+toInteger (Business x) = x
 
 
 data Decisions
@@ -65,13 +69,15 @@ translationSessionButton session = Lens.view translator
             KindergartenGroup _ -> Translation.buildGroup
             KindergartenSingle _ -> Translation.buildSingle
             School _ -> Translation.build
+            Business _ -> Translation.buildBusiness
 
-translationSession:: Session -> Translation.Translation -> String
+translationSession :: Session -> Translation.Translation -> String
 translationSession session = Lens.view translator
     where translator = case session of
             KindergartenGroup _ -> Translation.kindergartenGroup
             KindergartenSingle  _-> Translation.kindergartenSingle
             School _ -> Translation.school
+            Business _ -> Translation.business
 
 
 newtype Sessions = Sessions { unSessions:: ListZipper.ListZipper Session }
