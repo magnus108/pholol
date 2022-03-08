@@ -15,7 +15,6 @@ module Lib.Session
     , initialState
     , Model(..)
     , writeSessions'
-    , toInteger
     ) where
 
 import Prelude hiding (toInteger)
@@ -30,18 +29,17 @@ import Control.Lens
 import qualified Lib.Translation  as Translation --todo should not be here
 
 data Session
-    = KindergartenGroup
-    | KindergartenSingle
-    | School
+    = KindergartenGroup Int
+    | KindergartenSingle Int
+    | School Int
     deriving (Eq, Ord, Show)
     deriving (Generic)
     deriving (FromJSON, ToJSON, NFData)
 
-
 toInteger :: Session -> Int
-toInteger KindergartenSingle = 16
-toInteger KindergartenGroup = 16
-toInteger School = 15
+toInteger (KindergartenSingle x) = x
+toInteger (KindergartenGroup x) = x
+toInteger (School x) = x
 
 
 data Decisions
@@ -64,16 +62,16 @@ translationDecision decision = Lens.view translator
 translationSessionButton :: Session -> Translation.Translation -> String
 translationSessionButton session = Lens.view translator
     where translator = case session of
-            KindergartenGroup -> Translation.buildGroup
-            KindergartenSingle -> Translation.buildSingle
-            School -> Translation.build
+            KindergartenGroup _ -> Translation.buildGroup
+            KindergartenSingle _ -> Translation.buildSingle
+            School _ -> Translation.build
 
 translationSession:: Session -> Translation.Translation -> String
 translationSession session = Lens.view translator
     where translator = case session of
-            KindergartenGroup -> Translation.kindergartenGroup
-            KindergartenSingle -> Translation.kindergartenSingle
-            School -> Translation.school
+            KindergartenGroup _ -> Translation.kindergartenGroup
+            KindergartenSingle  _-> Translation.kindergartenSingle
+            School _ -> Translation.school
 
 
 newtype Sessions = Sessions { unSessions:: ListZipper.ListZipper Session }

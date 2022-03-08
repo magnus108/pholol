@@ -120,7 +120,7 @@ gradePath item =
         where
             location = takeBaseName $ Location.unLocationFile $ Lens.view Main.location item
             session = Lens.view Main.session item
-            sessionId = show $ Session.toInteger session
+            sessionId = show $ 22 -- Session.toInteger session
 
             camera = Lens.view Main.camera item
             extension = snd $ Camera.toExtension camera
@@ -128,12 +128,14 @@ gradePath item =
             photographerId = Lens.view Photographer.tid photographer
             doneshooting = Lens.view Main.doneshooting item
             shooting = Lens.view Main.shooting item
-            shootingId = if session == Session.KindergartenGroup then "3" else show $ Shooting.toInteger shooting
+            shootingId = if isKindergartenGroup session then "3" else show $ Shooting.toInteger shooting
             grade = Grade.showGrade (Lens.view Main.grades item)
             photographees = Lens.view Main.photographees item
             photographee = extract (Photographee.unPhotographees photographees)
             tea = Photographee.toTea' photographee
 
+isKindergartenGroup (Session.KindergartenGroup _) = True
+isKindergartenGroup _ = False
 
 mkDoneshootingPath :: Int -> FilePath -> Main.Item -> FilePath
 mkDoneshootingPath index' file item =
@@ -141,7 +143,7 @@ mkDoneshootingPath index' file item =
         where
             location = takeBaseName $ Location.unLocationFile $ Lens.view Main.location item
             session = Lens.view Main.session item
-            sessionId = show $ Session.toInteger session
+            sessionId = show $ 22 -- Session.toInteger session
 
             camera = Lens.view Main.camera item
             extension = snd $ Camera.toExtension camera
@@ -149,7 +151,7 @@ mkDoneshootingPath index' file item =
             photographerId = Lens.view Photographer.tid photographer
             doneshooting = Lens.view Main.doneshooting item
             shooting = Lens.view Main.shooting item
-            shootingId = if session == Session.KindergartenGroup then "3" else show $ Shooting.toInteger shooting
+            shootingId = if isKindergartenGroup session then "3" else show $ Shooting.toInteger shooting
             grade = Grade.showGrade (Lens.view Main.grades item)
             photographees = Lens.view Main.photographees item
             photographee = extract (Photographee.unPhotographees photographees)
@@ -164,7 +166,7 @@ mkDoneshootingPathJpg index' file item =
         where
             location = takeBaseName $ Location.unLocationFile $ Lens.view Main.location item
             session = Lens.view Main.session item
-            sessionId = show $ Session.toInteger session
+            sessionId = show $ 22 -- Session.toInteger session
 
             camera = Lens.view Main.camera item
             extension = snd $ Camera.toExtension camera
@@ -172,7 +174,7 @@ mkDoneshootingPathJpg index' file item =
             photographerId = Lens.view Photographer.tid photographer
             doneshooting = Lens.view Main.doneshooting item
             shooting = Lens.view Main.shooting item
-            shootingId = if session == Session.KindergartenGroup then "3" else show $ Shooting.toInteger shooting
+            shootingId = if isKindergartenGroup session then "3" else show $ Shooting.toInteger shooting
             photographees = Lens.view Main.photographees item
             photographee = extract (Photographee.unPhotographees photographees)
             tea = Photographee.toTea' photographee
@@ -241,6 +243,8 @@ myShake opts' time item = do
             Right filess -> filess
 
     let iindex = length count
+
+    -- læs her.
 
     tmp <- case sortDir  of
             [] -> error "empty"
