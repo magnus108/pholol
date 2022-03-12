@@ -15,6 +15,7 @@ module Lib.Session
     , initialState
     , Model(..)
     , writeSessions'
+    , toInteger
     ) where
 
 import Prelude hiding (toInteger)

@@ -120,7 +120,7 @@ gradePath item =
         where
             location = takeBaseName $ Location.unLocationFile $ Lens.view Main.location item
             session = Lens.view Main.session item
-            sessionId = show $ 22 -- Session.toInteger session
+            sessionId = show $ Session.toInteger session
 
             camera = Lens.view Main.camera item
             extension = snd $ Camera.toExtension camera
@@ -143,7 +143,7 @@ mkDoneshootingPath index' file item =
         where
             location = takeBaseName $ Location.unLocationFile $ Lens.view Main.location item
             session = Lens.view Main.session item
-            sessionId = show $ 22 -- Session.toInteger session
+            sessionId = show $ Session.toInteger session
 
             camera = Lens.view Main.camera item
             extension = snd $ Camera.toExtension camera
@@ -166,7 +166,7 @@ mkDoneshootingPathJpg index' file item =
         where
             location = takeBaseName $ Location.unLocationFile $ Lens.view Main.location item
             session = Lens.view Main.session item
-            sessionId = show $ 22 -- Session.toInteger session
+            sessionId = show $ Session.toInteger session
 
             camera = Lens.view Main.camera item
             extension = snd $ Camera.toExtension camera
